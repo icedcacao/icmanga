@@ -32,6 +32,5 @@ export default defineEventHandler(async (event) => {
     mangaSchema.safeParse(body)
   );
   if (!query.success) throw query.error.issues;
-
   return query.data;
 });
