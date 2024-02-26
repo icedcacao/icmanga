@@ -25,6 +25,11 @@ const MangaSchema = new Schema(
       required: true,
       default: 0,
     },
+    chapter_count: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
     cover_image_url: {
       type: String,
     },
@@ -67,5 +72,7 @@ const MangaSchema = new Schema(
     },
   }
 );
+
+MangaSchema.index({ title: "text" });
 
 export default model("Manga", MangaSchema);
