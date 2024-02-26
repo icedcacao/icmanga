@@ -8,7 +8,7 @@ const mangaSchema = z.object({
   status: z
     .string()
     .transform((v) => parseInt(v))
-    .default("-1"),
+    .default(""),
   includetags: z
     .string()
     .transform((v) => v.split(","))
@@ -17,14 +17,22 @@ const mangaSchema = z.object({
     .string()
     .transform((v) => v.split(","))
     .default(""),
+  authors: z
+    .string()
+    .transform((v) => v.split(","))
+    .default(""),
   limit: z
     .string()
     .transform((v) => parseInt(v))
-    .default("1"),
+    .default(""),
   page: z
     .string()
     .transform((v) => parseInt(v))
-    .default("1"),
+    .default(""),
+  sort: z
+    .string()
+    .transform((v) => parseInt(v))
+    .default(""),
 });
 
 export default defineEventHandler(async (event) => {
@@ -32,5 +40,18 @@ export default defineEventHandler(async (event) => {
     mangaSchema.safeParse(body)
   );
   if (!query.success) throw query.error.issues;
-  return query.data;
+  const title = query.data.title;
+  const status = query.data.status;
+  const includetags = query.data.includetags;
+  const excludetags = query.data.excludetags;
+  const authors = query.data.authors;
+  const limit = query.data.limit;
+  const page = query.data.page;
+  const sort = query.data.sort;
+  let queryArr = [];
+  if (title !== "")
+    queryArr.push({ $text: { $search: title, $caseSensitive: false } });
+  if (status >= 0 && status <= 1) queryArr.push({ status: status });
+  if (includetags[0] !== "") queryArr.push({ tags: { $all: includetags } });
+  return queryArr;
 });

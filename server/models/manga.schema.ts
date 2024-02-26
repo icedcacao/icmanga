@@ -14,12 +14,7 @@ const MangaSchema = new Schema(
       type: String,
       required: true,
     },
-    author: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Author",
-      },
-    ],
+    author: [String],
     status: {
       type: Boolean,
       required: true,
@@ -36,12 +31,7 @@ const MangaSchema = new Schema(
     description: {
       type: String,
     },
-    tags: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Tag",
-      },
-    ],
+    tags: [String],
     rating: {
       type: Number,
       required: true,
