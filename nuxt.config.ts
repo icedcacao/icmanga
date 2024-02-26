@@ -4,5 +4,6 @@ export default defineNuxtConfig({
   modules: ["@pinia/nuxt", "@nuxtjs/tailwindcss"],
   runtimeConfig: {
     mongoUri: process.env.NUXT_MONGO_URI,
+    searchLimit: 50,
   },
 });
