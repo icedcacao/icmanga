@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  escape-string-regexp:
+    specifier: ^5.0.0
+    version: 5.0.0
   mongoose:
     specifier: ^8.2.0
     version: 8.2.0

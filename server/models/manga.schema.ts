@@ -14,7 +14,7 @@ const MangaSchema = new Schema(
       type: String,
       required: true,
     },
-    author: [String],
+    authors: [String],
     status: {
       type: Boolean,
       required: true,
@@ -62,7 +62,5 @@ const MangaSchema = new Schema(
     },
   }
 );
-
-MangaSchema.index({ title: "text" });
 
 export default model("Manga", MangaSchema);
