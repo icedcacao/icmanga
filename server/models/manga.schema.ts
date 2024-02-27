@@ -5,6 +5,10 @@ const ChapterSchema = new Schema({
     type: String,
     required: true,
   },
+  language: {
+    type: String,
+    required: true,
+  },
   images: [String],
 });
 
@@ -24,6 +28,16 @@ const MangaSchema = new Schema(
       type: Number,
       required: true,
       default: 0,
+    },
+    last_chapter: {
+      translator: {
+        type: String,
+        required: true,
+      },
+      language: {
+        type: String,
+        required: true,
+      },
     },
     cover_image_url: {
       type: String,

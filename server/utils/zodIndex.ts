@@ -27,7 +27,7 @@ export const findQuerySchema = z
     limit: z
       .string()
       .transform((val) => parseInt(val))
-      .default(`${config.searchMinLimit}`),
+      .default(`${config.searchLimit.min}`),
     page: z
       .string()
       .transform((val) => parseInt(val))
@@ -44,8 +44,8 @@ export const findQuerySchema = z
   })
   .refine(
     (data) =>
-      data.limit >= config.searchMinLimit &&
-      data.limit <= config.searchMaxLimit,
+      data.limit >= config.searchLimit.min &&
+      data.limit <= config.searchLimit.max,
     { path: ["limit"], message: "Limit is invalid" }
   )
   .refine((data) => data.page > 0, {

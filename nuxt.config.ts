@@ -10,7 +10,29 @@ export default defineNuxtConfig({
       { rating: -1 },
       { chapter_count: -1 },
     ],
-    searchMinLimit: 1,
-    searchMaxLimit: 50,
+    searchLimit: {
+      min: 1,
+      max: 50,
+    },
+    findMangaOption: {
+      minimal: {
+        title: 1,
+        authors: 1,
+        status: 1,
+        last_chapter: 1,
+        cover_image_url: 1,
+        description: 1,
+        tags: 1,
+        rating: 1,
+        favorite_count: 1,
+      },
+      search: {
+        title: 1,
+        authors: 1,
+        status: 1,
+        cover_image_url: 1,
+        last_chapter: 1,
+      },
+    },
   },
 });
