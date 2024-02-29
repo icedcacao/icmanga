@@ -14,6 +14,11 @@ export default defineNuxtConfig({
       min: 1,
       max: 50,
     },
+    sliceOption: {
+      preview: 3,
+      search: 1,
+      unlimited: 9999,
+    },
     findMangaOption: {
       minimal: {
         title: 1,
@@ -25,13 +30,19 @@ export default defineNuxtConfig({
         tags: 1,
         rating: 1,
         favorite_count: 1,
+        "chapters.chapter_number": 1,
+        "chapters.chapter.translator": 1,
+        "chapters.chapter.language": 1,
+        updated_at: 1,
       },
       search: {
         title: 1,
         authors: 1,
         status: 1,
         cover_image_url: 1,
-        last_chapter: 1,
+        "chapters.chapter_number": 1,
+        "chapters.chapter.translator": 1,
+        "chapters.chapter.language": 1,
       },
     },
   },

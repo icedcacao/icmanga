@@ -29,16 +29,6 @@ const MangaSchema = new Schema(
       required: true,
       default: 0,
     },
-    last_chapter: {
-      translator: {
-        type: String,
-        required: true,
-      },
-      language: {
-        type: String,
-        required: true,
-      },
-    },
     cover_image_url: {
       type: String,
     },

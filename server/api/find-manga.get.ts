@@ -32,6 +32,7 @@ export default defineEventHandler(async (event) => {
   const result = await Manga.find(
     findQuery.length > 0 ? { $and: findQuery } : {}
   )
+    .slice("chapters", config.preview)
     .sort(config.sortingOrder[sort])
     .skip((page - 1) * limit)
     .limit(limit);
