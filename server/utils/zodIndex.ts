@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const config = useRuntimeConfig();
 
-export const findQuerySchema = z
+export const filterMangaSchema = z
   .object({
     title: z
       .string()
@@ -62,6 +62,62 @@ export const findQuerySchema = z
   .refine((data) => config.sortingOrder[data.sort] !== undefined, {
     path: ["sort"],
     message: "Sort is invalid",
+  })
+  .refine((data) => data.chapterslice >= -9999 && data.chapterslice <= 9999, {
+    path: ["chapterslice"],
+    message: "Chapterslice is invalid",
+  })
+  .refine((data) => config.mangaOption[data.mangaoption] !== undefined, {
+    path: ["mangaoption"],
+    message: "Mangaoption is invalid",
+  });
+
+export const findChapterByIdSchema = z
+  .object({
+    mangaid: z
+      .string()
+      .transform((val) => val.trim())
+      .default(""),
+    chaptersid: z
+      .string()
+      .transform((val) => val.trim())
+      .default(""),
+    chapterid: z
+      .string()
+      .transform((val) => val.trim())
+      .default(""),
+  })
+  .refine((data) => data.mangaid !== "", {
+    path: ["mangaid"],
+    message: "mangaid is invalid",
+  })
+  .refine((data) => data.chaptersid !== "", {
+    path: ["chaptersid"],
+    message: "chaptersid is invalid",
+  })
+  .refine((data) => data.chapterid !== "", {
+    path: ["chapterid"],
+    message: "chapterid is invalid",
+  });
+
+export const findMangaByIdSchema = z
+  .object({
+    mangaid: z
+      .string()
+      .transform((val) => val.trim())
+      .default(""),
+    chapterslice: z
+      .string()
+      .transform((val) => parseInt(val))
+      .default("-1"),
+    mangaoption: z
+      .string()
+      .transform((val) => val.trim())
+      .default("minimal"),
+  })
+  .refine((data) => data.mangaid !== "", {
+    path: ["mangaid"],
+    message: "mangaid is invalid",
   })
   .refine((data) => data.chapterslice >= -9999 && data.chapterslice <= 9999, {
     path: ["chapterslice"],
