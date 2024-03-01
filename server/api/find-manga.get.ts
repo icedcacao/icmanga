@@ -1,6 +1,7 @@
 import Manga from "~/server/models/manga.schema";
 import escapeStringRegexp from "escape-string-regexp";
 import { findQuerySchema } from "../utils/zodIndex";
+import projectingManga from "../utils/projectingManga";
 
 const config = useRuntimeConfig();
 
@@ -16,8 +17,11 @@ export default defineEventHandler(async (event) => {
   const limit = query.limit;
   const page = query.page;
   const sort = query.sort;
+  const chapterslice = query.chapterslice;
+  const mangaoption = query.mangaoption;
 
   let findQuery = [];
+  let projection = projectingManga(mangaoption, chapterslice);
 
   if (title !== "") {
     findQuery.push({
@@ -30,9 +34,9 @@ export default defineEventHandler(async (event) => {
   if (authors[0] !== "") findQuery.push({ authors: { $all: authors } });
 
   const result = await Manga.find(
-    findQuery.length > 0 ? { $and: findQuery } : {}
+    findQuery.length > 0 ? { $and: findQuery } : {},
+    projection
   )
-    .slice("chapters", config.preview)
     .sort(config.sortingOrder[sort])
     .skip((page - 1) * limit)
     .limit(limit);

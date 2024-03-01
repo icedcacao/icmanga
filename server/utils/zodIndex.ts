@@ -34,9 +34,16 @@ export const findQuerySchema = z
       .default("1"),
     sort: z
       .string()
+      .transform((val) => val.trim())
+      .default("updatedDes"),
+    chapterslice: z
+      .string()
       .transform((val) => parseInt(val))
-
-      .default("0"),
+      .default("-1"),
+    mangaoption: z
+      .string()
+      .transform((val) => val.trim())
+      .default("minimal"),
   })
   .refine((data) => data.status >= -1 && data.status <= 1, {
     path: ["status"],
@@ -52,7 +59,15 @@ export const findQuerySchema = z
     path: ["page"],
     message: "Page is invalid",
   })
-  .refine(
-    (data) => data.sort >= 0 && data.sort <= config.sortingOrder.length - 1,
-    { path: ["sort"], message: "Sort is invalid" }
-  );
+  .refine((data) => config.sortingOrder[data.sort] !== undefined, {
+    path: ["sort"],
+    message: "Sort is invalid",
+  })
+  .refine((data) => data.chapterslice >= -9999 && data.chapterslice <= 9999, {
+    path: ["chapterslice"],
+    message: "Chapterslice is invalid",
+  })
+  .refine((data) => config.mangaOption[data.mangaoption] !== undefined, {
+    path: ["mangaoption"],
+    message: "Mangaoption is invalid",
+  });

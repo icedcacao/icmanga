@@ -54,6 +54,7 @@ const MangaSchema = new Schema(
       {
         chapter_number: {
           type: Number,
+          unique: true,
         },
         chapter: [ChapterSchema],
       },
